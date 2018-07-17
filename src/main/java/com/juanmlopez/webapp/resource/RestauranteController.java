@@ -87,8 +87,8 @@ public class RestauranteController {
 	
 	@DeleteMapping("/{restauranteId}")
 	public void deleteBoard(@Valid @PathVariable Long restauranteId) throws ServiceException, DaoException {
+		
 		restauranteService.deleteRestaurante(restauranteId);
 	}
-	
 
 }

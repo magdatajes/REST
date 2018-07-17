@@ -52,7 +52,7 @@ public class ReservaController {
 	
 	@PostMapping
 	@ResponseStatus(HttpStatus.CREATED)
-	public @ResponseBody ReservaDTO createReserva(@Valid @RequestBody ReservaDTO reservaDTO) throws ServiceException, DaoException {
+	public @ResponseBody ReservaDTO createReserva(@Valid @RequestBody ReservaDTO reservaDTO) throws ServiceException {
 		Reserva reserva = ReservaMapper.makeReserva(reservaDTO);
 		return ReservaMapper.makeReservaDTO(restauranteService.saveOrUpdateReserva(reserva));
 	}

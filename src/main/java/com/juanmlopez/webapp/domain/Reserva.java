@@ -1,5 +1,6 @@
 package com.juanmlopez.webapp.domain;
 
+import java.io.Serializable;
 import java.util.Date;
 
 import javax.persistence.Column;
@@ -19,7 +20,10 @@ import org.apache.commons.lang3.Validate;
 
 @Entity
 @Table(name = "reserva")
-public class Reserva {
+public class Reserva implements Serializable {
+	
+	private static final long serialVersionUID = 1L;
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "id", unique = true, nullable = false)

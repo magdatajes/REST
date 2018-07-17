@@ -10,7 +10,7 @@ public interface NegocioRestauranteService {
 
 	Restaurante saveOrUpdate(Restaurante restaurante) throws ServiceException;
 
-	void deleteRestaurante(Long id) throws ServiceException;
+	void deleteRestaurante(Long id) throws ServiceException, DaoException;
 
 	Restaurante findById(Long id) throws ServiceException, DaoException;
 

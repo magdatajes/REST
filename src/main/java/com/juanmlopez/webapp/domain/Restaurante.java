@@ -1,6 +1,7 @@
 package com.juanmlopez.webapp.domain;
 
 import java.beans.Transient;
+import java.io.Serializable;
 import java.util.List;
 
 import javax.persistence.CascadeType;
@@ -17,7 +18,9 @@ import org.apache.commons.lang3.Validate;
 
 @Entity
 @Table(name = "restaurante")
-public class Restaurante {
+public class Restaurante implements Serializable {
+
+	private static final long serialVersionUID = 1L;
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)

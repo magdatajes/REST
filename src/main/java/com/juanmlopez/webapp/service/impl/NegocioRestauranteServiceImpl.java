@@ -1,6 +1,7 @@
 package com.juanmlopez.webapp.service.impl;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -40,11 +41,16 @@ public class NegocioRestauranteServiceImpl implements NegocioRestauranteService 
 	}
 
 	@Transactional
-	public void deleteRestaurante(Long id) throws ServiceException {
+	public void deleteRestaurante(Long id) throws ServiceException, DaoException {
 		if (id == null) {
 			throw new ServiceException();
 		}
-		restauranteRepository.delete(id);
+		List <Reserva> reservas= findAllReservas();
+		Optional<Reserva> reservaEncontrada= reservas.stream().filter(r -> r.getId()==id).findFirst();
+		if(!reservaEncontrada.isPresent()) {
+			restauranteRepository.delete(id);
+		}
+		
 	}
 
 	@Transactional
