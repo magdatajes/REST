@@ -10,7 +10,6 @@ public class MesaDTO {
 
 	private Restaurante restaurante;
 
-	private int numero;
 
 	private int capacidad;
 
@@ -30,13 +29,6 @@ public class MesaDTO {
 		this.restaurante = restaurante;
 	}
 
-	public int getNumero() {
-		return numero;
-	}
-
-	public void setNumero(int numero) {
-		this.numero = numero;
-	}
 
 	public int getCapacidad() {
 		return capacidad;

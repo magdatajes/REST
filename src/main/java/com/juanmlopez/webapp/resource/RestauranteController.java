@@ -68,20 +68,18 @@ public class RestauranteController {
 
 
 	@PutMapping("/{restauranteId}")
-	public @ResponseBody ResponseEntity<String> put(@Valid @PathVariable Long restauranteId, @RequestBody Map<String, String> data) {
+	public @ResponseBody ResponseEntity<String> put(@Valid @PathVariable Long restauranteId, @RequestBody Map<String, String> data) throws ServiceException {
 		RestauranteDTO rDTO= new RestauranteDTO();
 		
 		rDTO.setId(restauranteId);
 		rDTO.setNombre(data.get("nombre"));
+		rDTO.setDescripcion(data.get("descripcion"));
+		rDTO.setDireccion(data.get("direccion"));
 		
 		Restaurante restaurante = RestauranteMapper.makeRestaurante(rDTO);
-		try {
-			RestauranteMapper.makeRestauranteDTO(restauranteService.saveOrUpdate(restaurante));
-		} catch (ServiceException e) {
-			e.printStackTrace();
-		    return new ResponseEntity<String>("PUT Response", HttpStatus.CONFLICT);
- 
-		}
+	
+		RestauranteMapper.makeRestauranteDTO(restauranteService.saveOrUpdate(restaurante));
+		
 	    return new ResponseEntity<String>("PUT Response", HttpStatus.OK);
 	}
 	

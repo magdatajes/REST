@@ -11,21 +11,28 @@ import com.juanmlopez.webapp.domain.Restaurante;
 public class RestauranteMapper {
 
 	public static Restaurante makeRestaurante(RestauranteDTO restauranteDTO) {
-		return new Restaurante(restauranteDTO.getNombre());
+		Restaurante restaurante= new Restaurante(restauranteDTO.getNombre());
+		restaurante.setId(restauranteDTO.getId());
+		restaurante.setDescripcion(restauranteDTO.getDescripcion());
+		restaurante.setDireccion(restauranteDTO.getDireccion());
+		return restaurante;
+		
 	}
 
 	public static RestauranteDTO makeRestauranteDTO(Restaurante restaurante) {
 		RestauranteDTO restauranteDTO = new RestauranteDTO();
 		restauranteDTO.setId(restaurante.getId());
 		restauranteDTO.setNombre(restaurante.getNombre());
+		restauranteDTO.setDescripcion(restaurante.getDescripcion());
+		restauranteDTO.setDireccion(restaurante.getDireccion());
 		return restauranteDTO;
 	}
 
-	public static List<RestauranteDTO> makeBoardDTOList(Collection<Restaurante> restaurantes) {
+	public static List<RestauranteDTO> makeRestauranteDTOList(Collection<Restaurante> restaurantes) {
 		return restaurantes.stream().map(RestauranteMapper::makeRestauranteDTO).collect(Collectors.toList());
 	}
 
-	public static List<Restaurante> makeBoardList(Collection<RestauranteDTO> restaurantesDTO) {
+	public static List<Restaurante> makeRestauranteList(Collection<RestauranteDTO> restaurantesDTO) {
 		if (restaurantesDTO == null) {
 			return Collections.emptyList();
 		}

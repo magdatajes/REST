@@ -2,6 +2,8 @@ package com.juanmlopez.webapp.controller.dto;
 
 import java.util.List;
 
+import javax.persistence.Column;
+
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.juanmlopez.webapp.domain.Mesa;
 import com.juanmlopez.webapp.domain.Reserva;
@@ -12,14 +14,10 @@ public class RestauranteDTO {
 	private Long id;
 
 	private String nombre;
-
+	
 	private String direccion;
 
 	private String descripcion;
-
-	private List<Mesa> mesas;
-
-	private List<Reserva> reservas;
 
 	public Long getId() {
 		return id;
@@ -51,22 +49,6 @@ public class RestauranteDTO {
 
 	public void setDescripcion(String descripcion) {
 		this.descripcion = descripcion;
-	}
-
-	public List<Mesa> getMesas() {
-		return mesas;
-	}
-
-	public void setMesas(List<Mesa> mesas) {
-		this.mesas = mesas;
-	}
-
-	public List<Reserva> getReservas() {
-		return reservas;
-	}
-
-	public void setReservas(List<Reserva> reservas) {
-		this.reservas = reservas;
 	}
 
 }

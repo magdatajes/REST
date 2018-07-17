@@ -9,15 +9,26 @@ import com.juanmlopez.webapp.controller.dto.ReservaDTO;
 import com.juanmlopez.webapp.domain.Reserva;
 
 public class ReservaMapper {
-
+	
 	public static Reserva makeReserva(ReservaDTO reservaDTO) {
-		return new Reserva();
+		Reserva reserva= new Reserva();
+		
+		
+		
+		reserva.setId(reservaDTO.getId());
+		reserva.setLocalizador(reservaDTO.getLocalizador());
+		reserva.setPersonas(reservaDTO.getPersonas());
+		reserva.setDia(reservaDTO.getDia());
+	
+		return reserva;
 	}
 
 	public static ReservaDTO makeReservaDTO(Reserva reserva) {
 		ReservaDTO reservaDTO = new ReservaDTO();
 		reservaDTO.setId(reserva.getId());
 		reservaDTO.setLocalizador(reserva.getLocalizador());
+		reservaDTO.setPersonas(reserva.getPersonas());
+		reservaDTO.setDia(reserva.getDia());
 		return reservaDTO;
 	}
 

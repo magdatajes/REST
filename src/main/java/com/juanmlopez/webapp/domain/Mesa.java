@@ -27,9 +27,6 @@ public class Mesa implements Serializable  {
 	@JoinColumn(name = "restaurante_id")
 	private Restaurante restaurante;
 
-	@Column(name = "numero")
-	private int numero;
-
 	@Column(name = "capacidad")
 	private int capacidad;
 
@@ -39,14 +36,6 @@ public class Mesa implements Serializable  {
 
 	public void setId(int id) {
 		this.id = id;
-	}
-
-	public int getNumero() {
-		return numero;
-	}
-
-	public void setNumero(int numero) {
-		this.numero = numero;
 	}
 
 	public int getCapacidad() {

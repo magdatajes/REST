@@ -1,6 +1,5 @@
 package com.juanmlopez.webapp.domain;
 
-import java.beans.Transient;
 import java.io.Serializable;
 import java.util.List;
 
@@ -42,10 +41,6 @@ public class Restaurante implements Serializable {
 	@OneToMany(cascade = CascadeType.ALL)
 	private List<Reserva> reservas;
 
-	@Transient
-	public Integer getTotalPlazas() {
-		return null;
-	}
 
 	 public Restaurante() {
 			}
