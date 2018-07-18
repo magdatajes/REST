@@ -9,7 +9,6 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
-
 @Entity
 @Table(name = "turno")
 public class Turno implements Serializable {
@@ -24,7 +23,8 @@ public class Turno implements Serializable {
 	@Column(name = "descripcion")
 	private String descripcion;
 	
-
+	
+	
 	public long getId() {
 		return id;
 	}
@@ -40,5 +40,4 @@ public class Turno implements Serializable {
 	public void setDescripcion(String descripcion) {
 		this.descripcion = descripcion;
 	}
-
 }

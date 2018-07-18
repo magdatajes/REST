@@ -33,6 +33,9 @@ public class Mesa implements Serializable  {
 	public int getId() {
 		return id;
 	}
+	
+	@Column(name="turno")
+	private Turno turno;
 
 	public void setId(int id) {
 		this.id = id;
@@ -52,5 +55,13 @@ public class Mesa implements Serializable  {
 
 	public void setRestaurante(Restaurante restaurante) {
 		this.restaurante = restaurante;
+	}
+
+	public Turno getTurno() {
+		return turno;
+	}
+
+	public void setTurno(Turno turno) {
+		this.turno = turno;
 	}
 }

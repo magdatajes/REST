@@ -2,6 +2,7 @@ package com.juanmlopez.webapp.controller.mapper;
 
 import java.util.Collection;
 import java.util.Collections;
+import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -12,11 +13,12 @@ public class ReservaMapper {
 	
 	public static Reserva makeReserva(ReservaDTO reservaDTO) {
 		Reserva reserva= new Reserva();
-		
-		
-		
+	
 		reserva.setId(reservaDTO.getId());
-		reserva.setLocalizador(reservaDTO.getLocalizador());
+		Date fecha= new Date();
+		Long localizador = fecha.getTime();
+		
+		reserva.setLocalizador(localizador);
 		reserva.setPersonas(reservaDTO.getPersonas());
 		reserva.setDia(reservaDTO.getDia());
 	
@@ -29,6 +31,7 @@ public class ReservaMapper {
 		reservaDTO.setLocalizador(reserva.getLocalizador());
 		reservaDTO.setPersonas(reserva.getPersonas());
 		reservaDTO.setDia(reserva.getDia());
+		reservaDTO.setTurno(reserva.getTurno().getDescripcion());
 		return reservaDTO;
 	}
 

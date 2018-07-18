@@ -1,12 +1,6 @@
 package com.juanmlopez.webapp.controller.dto;
 
-import java.util.List;
-
-import javax.persistence.Column;
-
 import com.fasterxml.jackson.annotation.JsonInclude;
-import com.juanmlopez.webapp.domain.Mesa;
-import com.juanmlopez.webapp.domain.Reserva;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class RestauranteDTO {
@@ -50,5 +44,4 @@ public class RestauranteDTO {
 	public void setDescripcion(String descripcion) {
 		this.descripcion = descripcion;
 	}
-
 }

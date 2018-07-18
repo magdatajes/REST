@@ -9,7 +9,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.juanmlopez.webapp.controller.dto.ReservaDTO;
-import com.juanmlopez.webapp.controller.dto.TurnoDTO;
 import com.juanmlopez.webapp.dao.ReservaRepository;
 import com.juanmlopez.webapp.dao.RestauranteRepository;
 import com.juanmlopez.webapp.dao.TurnoRepository;
@@ -18,6 +17,7 @@ import com.juanmlopez.webapp.domain.Reserva;
 import com.juanmlopez.webapp.domain.Restaurante;
 import com.juanmlopez.webapp.domain.Turno;
 import com.juanmlopez.webapp.exception.DaoException;
+import com.juanmlopez.webapp.exception.MesaException;
 import com.juanmlopez.webapp.exception.ServiceException;
 import com.juanmlopez.webapp.service.NegocioRestauranteService;
 
@@ -46,9 +46,7 @@ public class NegocioRestauranteServiceImpl implements NegocioRestauranteService 
 			throw new ServiceException();
 		}
 		return reservaRepository.save(reserva);
-		
 	}
-
 
 	@Transactional
 	public void deleteRestaurante(Long id) throws ServiceException, DaoException {
@@ -81,6 +79,17 @@ public class NegocioRestauranteServiceImpl implements NegocioRestauranteService 
 			throw new DaoException();
 		}
 		return restaurante;
+	}
+
+	public Turno findByDescripcion(String descripcion) throws ServiceException, DaoException {
+		if (descripcion == null) {
+			throw new ServiceException();
+		}
+		Turno turno = turnoRepository.findByDescripcion(descripcion);
+		if (turno == null) {
+			throw new DaoException();
+		}
+		return turno;
 	}
 
 	public List<Restaurante> findAll() throws ServiceException, DaoException {
@@ -116,21 +125,24 @@ public class NegocioRestauranteServiceImpl implements NegocioRestauranteService 
 		return reservas.stream().filter(r -> r.getLocalizador().equals(localizador)).findFirst().get();
 	}
 
-	
-	public Mesa asignarMesa(ReservaDTO reservaDTO, TurnoDTO turnoDTO) {
+	public Mesa asignarMesa(ReservaDTO reservaDTO) throws MesaException {
+		Restaurante restaurante = restauranteRepository.findByNombre(reservaDTO.getRestaurante());
+		Turno turno = turnoRepository.findByDescripcion(reservaDTO.getTurno());
 
-		Restaurante restauranteReserva = restauranteRepository.findOne(reservaDTO.getId());
-		Turno turnoReserva = turnoRepository.findOne(turnoDTO.getId());
-		List<Mesa> mesasDelRestaurante = restauranteReserva.getMesas();
+		List<Mesa> mesasDelRestaurante = restaurante.getMesas();
 
 		mesasDelRestaurante.sort((m1, m2) -> (m1.getCapacidad() - m2.getCapacidad()));
+		List<Reserva> reservasExistentes = (List<Reserva>) reservaRepository.findAll();
 
-		if (reservaRepository.findAll() == null) {
+		if (reservasExistentes.isEmpty()) {
 			return mesasDelRestaurante.stream().filter(m -> m.getCapacidad() >= reservaDTO.getPersonas()).findFirst()
 					.orElse(null);
-
 		} else {
-			List<Mesa> mesasReservadas = reservaRepository.getMesasPorTurnoYRestaurante(turnoReserva, restauranteReserva);
+			List<Reserva> ReservasDelRestauranteYTurno = reservasExistentes.stream()
+					.filter(m -> m.getTurno().equals(turno) && m.getRestaurante().equals(restaurante))
+					.collect(Collectors.toList());
+			List<Mesa> mesasReservadas = ReservasDelRestauranteYTurno.stream().map(Reserva::getMesa)
+					.collect(Collectors.toList());
 
 			List<Mesa> result = mesasDelRestaurante.stream().filter(m -> m.getCapacidad() >= reservaDTO.getPersonas())
 					.filter(mk -> !mesasReservadas.contains(mk)).collect(Collectors.toList());

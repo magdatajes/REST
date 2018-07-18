@@ -16,7 +16,9 @@ public class ReservaDTO {
 	private String restaurante;
 
 	private Long localizador;
-
+	
+	private String turno;
+	
 
 	public Long getId() {
 		return id;
@@ -56,6 +58,14 @@ public class ReservaDTO {
 
 	public void setRestaurante(String restaurante) {
 		this.restaurante = restaurante;
+	}
+
+	public String getTurno() {
+		return turno;
+	}
+
+	public void setTurno(String turno) {
+		this.turno = turno;
 	}
 
 }
