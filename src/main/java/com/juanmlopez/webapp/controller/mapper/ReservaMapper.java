@@ -35,12 +35,12 @@ public class ReservaMapper {
 		return reservaDTO;
 	}
 
-	public static List<ReservaDTO> makeBoardDTOList(Collection<Reserva> boards) {
-		return boards.stream()
+	public static List<ReservaDTO> makeReservaDTOList(Collection<Reserva> reservas) {
+		return reservas.stream()
 				.map(ReservaMapper::makeReservaDTO).collect(Collectors.toList());
 	}
 
-	public static List<Reserva> makeBoardList(Collection<ReservaDTO> reservaDTO) {
+	public static List<Reserva> makeReservaList(Collection<ReservaDTO> reservaDTO) {
 		if (reservaDTO == null) {
 			return Collections.emptyList();
 		}

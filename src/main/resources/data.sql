@@ -3,7 +3,6 @@
  */
 
 -- Create Boards
-
 insert into restaurante (id, nombre, descripcion, direccion)
 values (1, 'Sushi','Arroz', 'Calle Si');
 

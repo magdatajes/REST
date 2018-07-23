@@ -31,6 +31,14 @@ public class NegocioRestauranteServiceImpl implements NegocioRestauranteService 
 	@Autowired
 	private TurnoRepository turnoRepository;
 
+	public NegocioRestauranteServiceImpl(RestauranteRepository restauranteRepository,
+			ReservaRepository reservaRepository, TurnoRepository turnoRepository) {
+		super();
+		this.restauranteRepository = restauranteRepository;
+		this.reservaRepository = reservaRepository;
+		this.turnoRepository = turnoRepository;
+	}
+
 	@Transactional
 	@Override
 	public Restaurante saveOrUpdate(Restaurante restaurante) throws ServiceException {
@@ -53,10 +61,12 @@ public class NegocioRestauranteServiceImpl implements NegocioRestauranteService 
 		if (id == null) {
 			throw new ServiceException();
 		}
-		List<Reserva> reservas = findAllReservas();
+		List<Reserva> reservas = (List<Reserva>) reservaRepository.findAll();
 		Optional<Reserva> reservaEncontrada = reservas.stream().filter(r -> r.getId() == id).findFirst();
 		if (!reservaEncontrada.isPresent()) {
 			restauranteRepository.delete(id);
+		} else {
+			throw new DaoException();
 		}
 	}
 
